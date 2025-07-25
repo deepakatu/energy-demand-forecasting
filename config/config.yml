@@ -1,0 +1,64 @@
+
+# Energy Demand Forecasting Configuration
+
+# Data settings
+data:
+  sample_start_date: "2020-01-01"
+  sample_end_date: "2023-12-31"
+  frequency: "H"  # Hourly data
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+
+# Prophet model settings
+prophet:
+  seasonality_mode: "multiplicative"
+  yearly_seasonality: true
+  weekly_seasonality: true
+  daily_seasonality: true
+  changepoint_prior_scale: 0.05
+  seasonality_prior_scale: 10.0
+
+# LSTM model settings
+lstm:
+  sequence_length: 24
+  hidden_units: 64
+  num_layers: 2
+  dropout_rate: 0.2
+  learning_rate: 0.001
+  epochs: 50
+  batch_size: 32
+
+# Ensemble settings
+ensemble:
+  combination_method: "optimal"
+  models: ["prophet", "lstm"]
+
+# Feature engineering
+features:
+  temporal_features: true
+  weather_features: true
+  lag_features: true
+  holiday_features: true
+  economic_features: true
+  lag_periods: [1, 2, 3, 6, 12, 24, 48, 168]
+  rolling_windows: [3, 6, 12, 24]
+
+# MLflow settings
+mlflow:
+  tracking_uri: "sqlite:///mlflow.db"
+  experiment_name: "energy_demand_forecasting"
+  artifact_location: "./artifacts"
+
+# API settings
+api:
+  host: "0.0.0.0"
+  port: 8000
+  max_forecast_horizon: 168  # 1 week
+  enable_retraining: true
+
+# Evaluation settings
+evaluation:
+  metrics: ["mae", "mse", "rmse", "mape", "r2"]
+  forecast_horizons: [1, 6, 12, 24, 48]
+  confidence_intervals: [0.8, 0.9, 0.95]

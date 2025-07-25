@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../notebooks"
+		},
+		{
+			"path": "../src"
+		},
+		{
+			"path": "../tests"
+		}
+	],
+	"settings": {}
+}
